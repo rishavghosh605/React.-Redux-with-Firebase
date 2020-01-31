@@ -1,0 +1,85 @@
+createFirestoreInstance is a keyword that is required to be added if one is using firestore
+
+<Route exact path='/' component={Dashboard} /> here exact keyword is the keyword that shows that / is the exact path that will be matched
+
+We use class based components when we want to store in an local state what an user types in the input field
+htmlFor matches with the id of the tag to become the label of that tag
+Eg:
+class CreateProject extends Component {
+    state = {
+        title: '',
+        content: ''
+    }
+
+import {connect} from 'react-redux', connect is used to connect a component with the redux store
+
+() Symbol means that the component is a functional component instead of a class component
+
+If we want to cycle through some data like an array:
+Eg:
+//We are gonna cycle through the projects onject and we use the statement projects && cause if we have no projects in the projects component then we dont bother to map through that component */}
+   <div>
+            { projects && projects.map(project => {
+                return(
+                    <Link to={'/project/'+project.id}>
+                    <ProjectSummary project={project} key={project.id}/>
+                    </Link>
+                )
+            })}
+    </div>
+
+We use attachAuthIsready argument to use a function in the store connected with the firebase,
+store.firebaseAuthIsReady is the function that checks if firebase has checked the authentication status of the site
+Since if we do not go through this procedure then there will a flicker in the navbar where it will show the signedoutLink before the signedIn link as
+the server will take a moment to get confirmation from firebase
+thus here we first get confirmation then we render.
+We add useFirestoreForProfile as we command firebase reducer to use the firestore to get the current logged in person profile in the table users as
+firebase.auth.profile
+Code:
+const store = createStore(rootReducer,
+  compose(
+    applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
+    reactReduxFirebase(fbConfig,{useFirestoreForProfile: true,userProfile:'users',attachAuthIsReady: true}), // redux binding for firebase
+    reduxFirestore(fbConfig) // redux bindings for firestore
+  )
+);
+
+import { firestoreReducer} from 'redux-firestore' ,To sync the firestore data with our store in the background
+
+We use actions to basically perform async requests
+Eg:
+const authReducer = (state = initState, action) => {
+  switch(action.type){
+    case 'LOGIN_ERROR':
+    console.log('login failed');
+    return {
+      ...state,
+      authError: 'LOGIN_FAILED'
+    }
+
+import { Link } from 'react-router-dom' //Used to basically reroute tags to different pages or components
+
+Key should be given to the parent tag of an iterating code
+
+So if we want to redirect the user to another page from the javascript itself then we will use the below code:
+Code:    this.props.history.push('/');
+
+{/*Do not write props.signOut() in the onClick part as parentheses:() are not required*/}
+        <li><a onClick = {props.signOut}>Log Out</a></li>
+
+We need to take input of props in SignedInLinks instead of this.props as it is a functional component
+
+Firebase auth is a free authentication service using jsonwebtokens it will store them email id photo url an uid and display name
+ we cannot store sprecial things like last and first name for that we connect the uid to the database
+firebase.auth.isEmpty = true means there is no profile
+We keep track of the auth state of the user by checking if state.firebase.auth has a property uid or not
+
+We use redirect to redirect users to different components
+Here we use redirect because if the person is not logged in he cannot see the projectList nd thus will be redirected to the login or
+signup pages
+import{ Redirect } from 'react-router-dom'
+
+This form of redirect after checking if the user is not logged in or not is called route guarding
+Code:
+    if (!auth.uid)
+      return <Redirect to="/signin" />;
